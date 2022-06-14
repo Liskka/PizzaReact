@@ -1,6 +1,6 @@
 import React from "react";
 
-export const PizzaBlock = ({title}) => {
+export const PizzaBlock = (props) => {
   const [pizzaCount, setPizzaCount] = React.useState(0);
 
   const onClickAdd = () => {
@@ -15,7 +15,7 @@ export const PizzaBlock = ({title}) => {
         src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
         alt="Pizza"
       />
-      <h4 className="pizza-block__title">{title}</h4>
+      <h4 className="pizza-block__title">{props.title}</h4>
       <div className="pizza-block__selector">
         <ul>
           <li className="active">тонкое</li>
@@ -28,7 +28,7 @@ export const PizzaBlock = ({title}) => {
         </ul>
       </div>
       <div className="pizza-block__bottom">
-        <div className="pizza-block__price">от 395 ₽</div>
+        <div className="pizza-block__price">от {props.price} грн</div>
         <button onClick={onClickAdd} className="button button--outline button--add">
           <svg
             width="12"
