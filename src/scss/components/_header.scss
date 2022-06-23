@@ -29,4 +29,11 @@
       color: #7b7b7b;
     }
   }
+
+  @media (max-width: 633px) {
+    padding: 10px 0;
+    .container {
+      flex-direction: column;
+    }
+  }
 }
