@@ -12,8 +12,8 @@ export const Sort = ({value, onChangeSort}) => {
   ];
   // const sortName = list[value].name;
 
-  const onClickListItem = (i) => {
-    onChangeSort(i);
+  const onClickListItem = (obj) => {
+    onChangeSort(obj);
     setOpen(false);
   };
 
