@@ -4,11 +4,14 @@ import { Sort } from '../components/Sort';
 import { PizzaBlock } from '../components/PizzaBlock';
 import { Skeleton } from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
+import { SearchContext } from '../App';
 
 // import pizzas from './assets/pizzas.json';
 
-function Home({ searchValue }) {
+function Home() {
   // https://62adb789645d00a28afe6622.mockapi.io/items
+
+  const {searchValue} = React.useContext(SearchContext);
 
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
