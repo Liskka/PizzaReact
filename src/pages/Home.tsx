@@ -5,9 +5,9 @@ import { setCategoryId, setCurrentPage, setFilters, selectFilter } from '../redu
 import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzaSlice';
 import { useNavigate } from 'react-router-dom';
 
-import { Categories } from '../components/Categories';
+import Categories from '../components/Categories';
 import { Sort, sortList } from '../components/Sort';
-import { PizzaBlock } from '../components/PizzaBlock';
+import PizzaBlock from '../components/PizzaBlock';
 import { Skeleton } from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
 // import { SearchContext } from '../App';
@@ -15,7 +15,7 @@ import Pagination from '../components/Pagination';
 
 // import pizzas from './assets/pizzas.json';
 
-function Home() {
+const Home: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -27,20 +27,22 @@ function Home() {
   
   // https://62adb789645d00a28afe6622.mockapi.io/items
 
-  const onChangeCategory = (id) => {
+  const onChangeCategory = (id: number) => {
     dispatch(setCategoryId(id));
   }
   
-  const onChangePage = (number) => {
-    dispatch(setCurrentPage(number));
+  const onChangePage = (page: number) => {
+    dispatch(setCurrentPage(page));
   }
 
   const getPizzas = async () => {
     const sortBy = sort.sortProperty.replace('-', '');
     const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
     const category = categoryId > 0 ? `category=${categoryId}` : '';
+    // const search = searchValue ? `&search=${searchValue}` : '';
 
     dispatch(
+      // @ts-ignore
       fetchPizzas({
         sortBy,
         order,
@@ -95,9 +97,9 @@ function Home() {
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
 
-  const pizzas = items.filter(obj => {
+  const pizzas = items.filter((obj: any) => {
     return obj.title.toLowerCase().includes(searchValue.toLowerCase());
-  }).map((obj) => <PizzaBlock key={obj.id} {...obj}/>);
+  }).map((obj: any) => <PizzaBlock key={obj.id} {...obj}/>);
 
   const skeletons = [...new Array(4)].map((_, i) => <Skeleton key={i} />);
 
@@ -119,7 +121,8 @@ function Home() {
             <div className="content__items">
               {status === 'loading' ? skeletons : pizzas }
             </div>
-          )}
+          )
+        }
       <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
   );
