@@ -1,37 +1,36 @@
 import React from 'react';
-import qs from 'qs';
 import { useSelector } from 'react-redux';
-import { setCategoryId, setCurrentPage, setFilters, selectFilter, FilterSliceState } from '../redux/slices/filterSlice';
-import { fetchPizzas, SearchPizzaParams, selectPizzaData } from '../redux/slices/pizzaSlice';
-import { useNavigate } from 'react-router-dom';
-
+// import { useNavigate } from 'react-router-dom';
 import Categories from '../components/Categories';
-import { sortList } from '../components/SortPopup';
 import SortPopup from '../components/SortPopup';
 import PizzaBlock from '../components/PizzaBlock';
 import { Skeleton } from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
 import { useAppDispatch } from '../redux/store';
+import { selectFilter } from '../redux/filter/selectors';
+import { setCategoryId, setCurrentPage } from '../redux/filter/slice';
+import { selectPizzaData } from '../redux/pizza/selectors';
+import { fetchPizzas } from '../redux/pizza/asyncActions';
 // import { SearchContext } from '../App';
 
 
 // import pizzas from './assets/pizzas.json';
 
 const Home: React.FC = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const isSearch = React.useRef(false);
-  const isMounted = React.useRef(false);
+  // const isSearch = React.useRef(false);
+  // const isMounted = React.useRef(false);
   
   const {items, status} = useSelector(selectPizzaData);
   const {categoryId, sort, currentPage, searchValue} = useSelector(selectFilter);
   
   // https://62adb789645d00a28afe6622.mockapi.io/items
 
-  const onChangeCategory = (id: number) => {
+  const onChangeCategory = React.useCallback((id: number) => {
     dispatch(setCategoryId(id));
-  }
+  }, [])
   
   const onChangePage = (page: number) => {
     dispatch(setCurrentPage(page));
@@ -117,7 +116,7 @@ const Home: React.FC = () => {
     <div className="container">
       <div className="content__top">
         <Categories value={categoryId} onClickCategory={onChangeCategory} />
-        <SortPopup />
+        <SortPopup value={sort} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
         {
